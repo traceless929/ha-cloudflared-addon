@@ -57,6 +57,7 @@ additional_trusted_proxies: ""
 - `auto_trust_local_proxy`：是否自动修复 Home Assistant 中的 `trusted_proxies`。
 - `auto_restart_core_after_proxy_patch`：自动修复后是否自动重启 Home Assistant Core。
 - `additional_trusted_proxies`：额外追加的信任代理地址，多个值用逗号分隔。
+- 自动修复会尝试兼容不同 Supervisor / HAOS 版本下的配置挂载路径，例如 `/config`、`/homeassistant`、`/homeassistant_config`。
 
 ## Options
 
@@ -68,6 +69,7 @@ additional_trusted_proxies: ""
 - `auto_trust_local_proxy`: Automatically patch `trusted_proxies` in Home Assistant.
 - `auto_restart_core_after_proxy_patch`: Restart Home Assistant Core after a proxy config change.
 - `additional_trusted_proxies`: Extra trusted proxy addresses, separated by commas.
+- Auto patching attempts to detect multiple Home Assistant config mount paths such as `/config`, `/homeassistant`, and `/homeassistant_config`.
 
 ## 重点提醒：`400 Bad Request`
 

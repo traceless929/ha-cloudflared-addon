@@ -8,7 +8,7 @@ The format loosely follows Keep a Changelog and uses semantic-style versioning f
 
 本文件参考 Keep a Changelog 风格编写，并使用接近语义化的版本表达方式。
 
-## 0.2.0
+## 0.2.1
 
 ### Added
 
@@ -22,6 +22,7 @@ The format loosely follows Keep a Changelog and uses semantic-style versioning f
 - Switched to copying `cloudflared` from the official `cloudflare/cloudflared` image
 - Sanitized repository metadata and removed device-specific content
 - Reworked docs for public GitHub release and mainland China deployment scenarios
+- Detect multiple Home Assistant config mount paths when auto-patching `trusted_proxies`
 
 ### 新增
 
@@ -35,6 +36,7 @@ The format loosely follows Keep a Changelog and uses semantic-style versioning f
 - 改为从官方 `cloudflare/cloudflared` 镜像复制 `cloudflared` 二进制
 - 完成仓库脱敏，移除设备专用内容
 - 重写文档，使其更适合 GitHub 公开发布和国内环境部署
+- 自动修复 `trusted_proxies` 时，改为自动探测多个 Home Assistant 配置挂载路径
 
 ## 0.1.0
 
