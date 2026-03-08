@@ -1,6 +1,6 @@
 ---
 name: Cloudflared Tunnel
-version: "0.2.0"
+version: "0.2.1"
 slug: cloudflared_host_tunnel
 description: Cloudflare Tunnel client for Home Assistant and host network services
 url: "https://github.com/traceless929/ha-cloudflared-addon"

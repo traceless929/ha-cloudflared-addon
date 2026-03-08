@@ -2,8 +2,14 @@
 
 set -euo pipefail
 
-CONFIG_FILE="/config/configuration.yaml"
 PATCHED=0
+CONFIG_FILE=""
+
+CANDIDATE_CONFIG_FILES=(
+    "/config/configuration.yaml"
+    "/homeassistant/configuration.yaml"
+    "/homeassistant_config/configuration.yaml"
+)
 
 auto_trust_local_proxy="$(bashio::config 'auto_trust_local_proxy')"
 auto_restart_core_after_proxy_patch="$(bashio::config 'auto_restart_core_after_proxy_patch')"
@@ -14,10 +20,24 @@ if [[ "${auto_trust_local_proxy}" != "true" ]]; then
     exit 0
 fi
 
-if [[ ! -f "${CONFIG_FILE}" ]]; then
-    bashio::log.fatal "Home Assistant configuration file not found at ${CONFIG_FILE}"
+detect_config_file() {
+    local candidate
+    for candidate in "${CANDIDATE_CONFIG_FILES[@]}"; do
+        if [[ -f "${candidate}" ]]; then
+            CONFIG_FILE="${candidate}"
+            return 0
+        fi
+    done
+    return 1
+}
+
+if ! detect_config_file; then
+    bashio::log.fatal "Home Assistant configuration file not found in supported mount paths."
+    bashio::log.fatal "Checked: ${CANDIDATE_CONFIG_FILES[*]}"
     bashio::exit.nok
 fi
+
+bashio::log.info "Using Home Assistant configuration file at ${CONFIG_FILE}"
 
 trim_lines() {
     sed 's/#.*$//' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//' | sed '/^$/d'
@@ -160,7 +180,7 @@ for proxy in "${proxies[@]}"; do
 done
 
 if [[ "${PATCHED}" -eq 1 ]]; then
-    bashio::log.warning "Updated /config/configuration.yaml to trust local reverse proxies."
+    bashio::log.warning "Updated ${CONFIG_FILE} to trust local reverse proxies."
     if [[ "${auto_restart_core_after_proxy_patch}" == "true" ]]; then
         bashio::log.warning "Restarting Home Assistant Core to apply proxy configuration."
         if ! curl -fsS -X POST \
