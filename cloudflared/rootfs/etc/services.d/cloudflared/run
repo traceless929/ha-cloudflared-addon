@@ -1,0 +1,36 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+token="$(bashio::config 'tunnel_token')"
+log_level="$(bashio::config 'log_level')"
+metrics_enabled="$(bashio::config 'metrics_enabled')"
+metrics_port="$(bashio::config 'metrics_port')"
+additional_args="$(bashio::config 'additional_args')"
+
+cmd=(
+    /usr/bin/cloudflared
+    tunnel
+    --no-autoupdate
+    --loglevel "${log_level}"
+)
+
+if [[ "${metrics_enabled}" == "true" ]]; then
+    cmd+=(--metrics "0.0.0.0:${metrics_port}")
+    bashio::log.info "Metrics enabled on 0.0.0.0:${metrics_port}"
+fi
+
+if [[ -n "${additional_args}" ]]; then
+    bashio::log.warning "Appending raw additional_args from add-on options."
+    # Extra flags are appended before `run`, matching the official CLI layout.
+    read -r -a extra_args <<< "${additional_args}"
+    cmd+=("${extra_args[@]}")
+fi
+
+cmd+=(
+    run
+    --token "${token}"
+)
+
+bashio::log.info "Starting cloudflared tunnel client"
+exec "${cmd[@]}"

@@ -1,0 +1,34 @@
+---
+name: Cloudflared Tunnel
+version: "0.2.0"
+slug: cloudflared_host_tunnel
+description: Cloudflare Tunnel client for Home Assistant and host network services
+url: "https://github.com/traceless929/ha-cloudflared-addon"
+startup: services
+boot: auto
+init: false
+host_network: true
+hassio_api: true
+arch:
+  - aarch64
+  - amd64
+map:
+  - homeassistant_config:rw
+options:
+  tunnel_token: ""
+  log_level: info
+  metrics_enabled: false
+  metrics_port: 49312
+  additional_args: ""
+  auto_trust_local_proxy: false
+  auto_restart_core_after_proxy_patch: false
+  additional_trusted_proxies: ""
+schema:
+  tunnel_token: password
+  log_level: list(debug|info|warn|error|fatal)
+  metrics_enabled: bool
+  metrics_port: port
+  additional_args: str?
+  auto_trust_local_proxy: bool
+  auto_restart_core_after_proxy_patch: bool
+  additional_trusted_proxies: str?
