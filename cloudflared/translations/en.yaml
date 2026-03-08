@@ -1,0 +1,25 @@
+configuration:
+  tunnel_token:
+    name: Tunnel token
+    description: Token for a remotely managed Cloudflare Tunnel.
+  log_level:
+    name: Log level
+    description: Logging level used by cloudflared.
+  metrics_enabled:
+    name: Enable metrics
+    description: Expose the cloudflared metrics endpoint from the add-on.
+  metrics_port:
+    name: Metrics port
+    description: Port used when metrics are enabled.
+  additional_args:
+    name: Additional arguments
+    description: Extra command line arguments passed to cloudflared.
+  auto_trust_local_proxy:
+    name: Auto trust local proxy
+    description: Automatically patch Home Assistant trusted_proxies for 127.0.0.1 and ::1.
+  auto_restart_core_after_proxy_patch:
+    name: Restart Home Assistant Core after patch
+    description: Restart Home Assistant Core automatically when trusted_proxies is updated.
+  additional_trusted_proxies:
+    name: Additional trusted proxies
+    description: Extra proxy addresses to append to trusted_proxies, separated by commas.

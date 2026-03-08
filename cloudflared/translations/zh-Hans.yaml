@@ -1,0 +1,25 @@
+configuration:
+  tunnel_token:
+    name: Tunnel Token
+    description: Cloudflare 远程托管 Tunnel 使用的令牌。
+  log_level:
+    name: 日志级别
+    description: "`cloudflared` 使用的日志级别。"
+  metrics_enabled:
+    name: 启用 metrics
+    description: "是否暴露 `cloudflared` 的 metrics 接口。"
+  metrics_port:
+    name: Metrics 端口
+    description: 启用 metrics 后使用的监听端口。
+  additional_args:
+    name: 附加参数
+    description: "额外传递给 `cloudflared` 的命令行参数。"
+  auto_trust_local_proxy:
+    name: 自动信任本地反向代理
+    description: "自动修复 Home Assistant 中 `127.0.0.1` 和 `::1` 的 `trusted_proxies`。"
+  auto_restart_core_after_proxy_patch:
+    name: 修复后自动重启 Core
+    description: "当 `trusted_proxies` 配置被修改时，是否自动重启 Home Assistant Core。"
+  additional_trusted_proxies:
+    name: 额外信任的代理地址
+    description: "需要追加到 `trusted_proxies` 中的其他代理地址，多个值用逗号分隔。"
